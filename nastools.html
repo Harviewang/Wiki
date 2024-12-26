@@ -1,0 +1,82 @@
+<!--
+title: nastools折腾
+description: 
+published: true
+date: 2024-12-26T09:14:02.897Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-12-25T04:17:56.747Z
+-->
+
+<p>一直想折腾自动化影视系统，迫于搞不明白/没时间折腾pt作罢</p>
+<p>今天刷张大妈的时候发现nt 2.9版本之前其实是支持bt的，另外有个人维护的版本目前也是支持bt的，遂准备在群晖上试试。</p>
+<p>&nbsp;</p>
+<p><strong>1 查看项目及相关教程</strong></p>
+<p><strong>1.1 涉及到的套件/服务如下：</strong></p>
+<p><strong>1.1.1 核心组件&nbsp;</strong></p>
+<p><strong>&nbsp; &nbsp; nastools</strong> https://github.com/hsuyelin/nas-tools 最新版本3.4.1，且矿神套件有收录，可直接安装</p>
+<p><strong>1.1.2 媒体服务器&nbsp;</strong></p>
+<p><strong>&nbsp; &nbsp; jellyfin</strong></p>
+<p><strong>&nbsp; &nbsp; emby</strong></p>
+<p><strong>&nbsp; &nbsp; plex&nbsp;</strong></p>
+<p><strong>1.1.3 下载器</strong></p>
+<p><strong>&nbsp; &nbsp; qbittorrent</strong></p>
+<p><strong>&nbsp; &nbsp; transmission</strong></p>
+<p><strong>1.1.4 索引器</strong></p>
+<p>&nbsp; &nbsp; ja 由于官方索引可能会出现无法找到资源的情况，需要添加索引</p>
+<p>&nbsp;</p>
+<p><strong>他们之间的关系如下图所示：</strong></p>
+<p>&nbsp;</p>
+<p><strong>1.2参考教程如下：</strong></p>
+<p>https://blog.csdn.net/weixin_66688931/article/details/136563912</p>
+<p>https://doc.nastool.shop/</p>
+<p>https://post.smzdm.com/p/a2xzmwrq/</p>
+<p>&nbsp;</p>
+<p><strong>2 准备工作</strong></p>
+<p><strong>2.1 获取密钥</strong></p>
+<p><strong>2.1.1 &nbsp;注册TMDB并申请API的密钥</strong></p>
+<p>注册用途：用于Nastool媒体库中所有影视资源的刮削（获取海报、简介、演员表、上映年份等）</p>
+<p><a href="https://www.themoviedb.org/">官方：https://www.themoviedb.org</a></p>
+<figure class="image image_resized" style="width:624px;"><img src="https://cdn.92cos.vip:18888/i/2023/10/19/TMDB.jpg" alt="1"></figure>
+<p>申请API密钥时请填写以下内容：<br>Use KeyYong to retrieve information about movies and television.These uses are for personal use and are not for commercial use.</p>
+<p>手把手教你申请TMDB的API秘钥： <a href="https://cdn.92cos.vip:18888/i/2023/10/19/TMDB-API.pdf">点击查看图文教程</a></p>
+<p><br>&nbsp;</p>
+<figure class="image image_resized" style="width:624px;"><img src="https://cdn.92cos.vip:18888/i/2023/10/19/TMDB-API.png" alt="1"></figure>
+<p><strong>2.1.2 微信消息推送PushPlus</strong></p>
+<p>注册用途：用于NasTool的微信公众号消息推送</p>
+<p><a href="http://www.pushplus.plus/">PushPlus官网：http://www.pushplus.plus</a><br>&nbsp;</p>
+<figure class="image image_resized" style="width:624px;"><img src="https://cdn.92cos.vip:18888/i/2023/10/19/pushplus.jpg" alt="1"></figure>
+<p>&nbsp;</p>
+<figure class="image image_resized" style="width:624px;"><img src="https://cdn.92cos.vip:18888/i/2023/10/19/pushplus2.png" alt="2"></figure>
+<p>&nbsp;</p>
+<p><strong>2.1.3 登录豆瓣帐号</strong></p>
+<p>注册用途：用于配置豆瓣远程订阅 (豆瓣APP点击想看后，nastool会自动搜索下载对应的电影或者电视剧)</p>
+<p><a href="https://www.douban.com/">豆瓣网： https://www.douban.com</a></p>
+<figure class="image image_resized" style="width:624px;"><img src="https://cdn.92cos.vip:18888/i/2023/10/19/douban.jpg" alt="3"></figure>
+<p><br>&nbsp;</p>
+<figure class="image image_resized" style="width:624px;"><img src="https://cdn.92cos.vip:18888/i/2023/10/19/douban2.png" alt="2"></figure>
+<p>2.1.4 密钥记录</p>
+<p>themoviedb：e5cc4c8a6e8780f31897cdb6dccd9f31f</p>
+<p>pushplus：1f47d7dbf857410ab7b4311af1ff5d910</p>
+<p>豆瓣：666866816</p>
+<p>&nbsp;</p>
+<p><strong>2.2 文件夹准备</strong></p>
+<p>在资源池2中分别创建共享文件夹Docker和Video，并创建以下路径：</p>
+<p><strong>Nastools</strong> /Volume2/Docker/Nastools 用于放置nt的配置文件</p>
+<p><strong>Download</strong> /Volume2/Video/Download 用于放置下载的文件</p>
+<p><strong>&nbsp; &nbsp; 电影 </strong>/Volume2/Video/电影/</p>
+<p><strong>&nbsp; &nbsp; 电视剧 </strong>/Volume2/Video/电视剧/</p>
+<p><strong>&nbsp; &nbsp; 动漫 </strong>/Volume2/Video/动漫/</p>
+<p><strong>&nbsp; &nbsp; MV </strong>/Volume2/Video/MV/</p>
+<p><strong>&nbsp; &nbsp; 未分类 </strong>/Volume2/Video/未分类/</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3.安装和配置</p>
+<p>使用矿神套件直接进行安装，需要按安装python 3.10.0，安装完毕后打开3003端口，账号admin密码password。</p>
+<p>3.1 配置 themoviedb</p>
+<p>输入key</p>
+<p>3.2 配置 qb</p>
+<p>3.3 配置索引</p>
+<p>3.4 配置媒体服务器</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
